@@ -1,0 +1,61 @@
+def calcular_desconto(valor_compra):
+    """
+    Função que recebe o valor total da compra e retorna a porcentagem
+    de desconto com base no sistema de desconto progressivo.
+    """
+    if valor_compra < 200.00:
+        porcentagem_desconto = 0.05  # 5% de desconto
+    elif valor_compra < 300.00:
+        porcentagem_desconto = 0.10  # 10% de desconto
+    else:
+        porcentagem_desconto = 0.15  # 15% de desconto
+
+    return porcentagem_desconto
+
+
+def main():
+    print("=== SISTEMA DE DESCONTO PROGRESSIVO ===")
+    print("Dica: Digite 0 (zero) a qualquer momento para sair do programa.\n")
+
+    # Loop principal para manter o programa rodando
+    while True:
+        try:
+            # Entrada de dados: solicita o valor total da compra ao usuário
+            entrada = input("Digite o valor total da compra (R$): ").strip()
+            
+            # Substitui vírgula por ponto para aceitar formatos como "150,50"
+            entrada = entrada.replace(",", ".")
+
+            valor_compra = float(entrada)
+
+            # Condição de saída do loop
+            if valor_compra == 0:
+                print("\nEncerrando o programa. Até logo!")
+                break
+
+            # Validação para evitar valores negativos
+            if valor_compra < 0:
+                print("Erro: O valor da compra não pode ser negativo. Tente novamente.\n")
+                continue
+
+            # Processamento: calcula o percentual, o valor do desconto e o valor final
+            porcentagem = calcular_desconto(valor_compra)
+            valor_desconto = valor_compra * porcentagem
+            valor_final = valor_compra - valor_desconto
+
+            # Saída de dados: exibe os resultados formatados para o usuário
+            print("\n--- RESUMO DA COMPRA ---")
+            print(f"Valor original da compra: R$ {valor_compra:.2f}")
+            print(
+                f"Desconto aplicado ({int(porcentagem * 100)}%): R$ {valor_desconto:.2f}"
+            )
+            print(f"Valor total a pagar: R$ {valor_final:.2f}")
+            print("-" * 30 + "\n")
+
+        except ValueError:
+            print("Erro: Entrada inválida! Por favor, digite um número válido.\n")
+
+
+# Ponto de entrada do programa
+if __name__ == "__main__":
+    main()
